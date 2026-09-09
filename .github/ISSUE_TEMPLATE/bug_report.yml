@@ -14,20 +14,20 @@ body:
     id: expected
     attributes:
       label: Expected behavior
-      description: What should Claude or Codex have done instead?
+      description: What should ChatGPT, Codex, or Claude have done instead?
     validations:
       required: true
   - type: textarea
     id: reproduction
     attributes:
       label: Reproduction
-      description: Include the request, whether `/model-optimizer-lite` was invoked directly, and relevant non-secret context.
+      description: Include the request, whether the skill was invoked directly, and relevant non-secret context.
     validations:
       required: false
   - type: textarea
     id: environment
     attributes:
       label: Environment
-      description: Claude Code version, Codex CLI version, OS, and any relevant config.
+      description: App or client, model if visible, OS, and any relevant non-secret configuration.
     validations:
       required: false

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Model Optimizer Lite"
+  short_description: "Choose the right model and reasoning effort"
+  default_prompt: "Use $model-optimizer-lite to recommend a model and reasoning effort for this task."

@@ -12,93 +12,23 @@ permissions:
 
 jobs:
   validate:
-    name: Validate (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-
+    name: Validate skill
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
-      - name: Validate skill package
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-          import sys
-
-          root = Path(".")
-          skill = root / "skills" / "model-optimizer-lite" / "SKILL.md"
-          errors = []
-
-          if not skill.is_file():
-              errors.append("skills/model-optimizer-lite/SKILL.md is missing")
-          else:
-              text = skill.read_text(encoding="utf-8")
-              if not text.startswith("---\n"):
-                  errors.append("SKILL.md missing YAML frontmatter")
-              elif "\n---\n" not in text[4:]:
-                  errors.append("SKILL.md missing closing frontmatter")
-              if "name: model-optimizer-lite" not in text:
-                  errors.append("SKILL.md missing expected name")
-              if "description:" not in text:
-                  errors.append("SKILL.md missing description")
-
-          tracked = [
-              p for p in root.rglob("*")
-              if p.is_file() and ".git" not in p.parts
-          ]
-          blocked = [
-              re.compile(r"(^|/)research/"),
-              re.compile(r"(^|/)Docs/"),
-              re.compile(r"(^|/)transcript\.md$"),
-              re.compile(r"(^|/)FABLE5_HANDOFF\.md$"),
-              re.compile(r"(^|/)internal-notes\.md$"),
-              re.compile(r"(^|/)example-claude\.md$"),
-              re.compile(r"(^|/)\.claude/"),
-              re.compile(r"\.(png|jpe?g|webp|gif|mov|mp4)$", re.I),
-          ]
-          for path in tracked:
-              rel = path.as_posix()
-              if any(pattern.search(rel) for pattern in blocked):
-                  errors.append(f"public package contains blocked file: {rel}")
-
-          if errors:
-              for error in errors:
-                  print(error, file=sys.stderr)
-              sys.exit(1)
-          print("OK: skill package validated")
-          PY
-
-      - name: Test installer modes
-        run: tests/install.sh
-
-      - name: Check instruction-surface sync anchors
-        run: tests/sync.sh
-
-      - name: Check Codex CLI template flags (skips without codex)
-        run: tests/codex-smoke.sh
-
-      - name: Check Claude CLI template flags (skips without Claude Code)
-        run: tests/claude-smoke.sh
-
-      - name: Test Fable review result validation
-        run: tests/fable-review-validator.sh
-
-      - name: Test routing, receipts, model discovery, and Codex installation
-        run: python3 -m unittest discover -s tests -p '*_test.py'
-
-      - name: Check native plugin installation when CLIs are available
-        run: python3 tests/native-plugin-smoke.py
-
-      - name: Build release downloads
-        run: python3 scripts/build-distribution.py --check --archives dist
-
-      - name: Preserve reviewable downloads
-        uses: actions/upload-artifact@v4
         with:
-          name: model-optimizer-lite-${{ matrix.os }}
-          path: dist/
+          fetch-depth: 0
+
+      - name: Validate the self-contained skill
+        run: python3 scripts/validate.py
+
+      - name: Check committed whitespace
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [[ -n "$BASE_SHA" ]]; then
+            git diff --check "$BASE_SHA...HEAD"
+          else
+            git show --check --format= HEAD
+          fi

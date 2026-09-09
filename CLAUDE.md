@@ -1,26 +1,10 @@
 # Model Optimizer Lite project instructions
 
-Maintain the shared sources and host-specific profiles under `shared/`.
-The standalone package under `skills/model-optimizer-lite/` is generated. Both
-Claude and Codex use the `model-optimizer-lite` skill name.
+Maintain `skills/model-optimizer-lite/SKILL.md` directly. It must work without
+repository references, scripts, plugins, generated copies, or a provider CLI.
+Keep ChatGPT, Codex, and Claude behavior distinct and preserve explicit model
+choices.
 
-Read `AGENTS.md`, `CONTRIBUTING.md`, and `docs/architecture.md` for the development
-contract, validation commands, and provider boundaries.
-
-After changing shared source, run:
-
-```sh
-python3 scripts/sync-packages.py
-python3 scripts/build-distribution.py
-./install.sh claude-md-print > claude-md/CLAUDE.md
-tests/sync.sh
-tests/install.sh
-python3 -m unittest discover -s tests -p '*_test.py'
-tests/codex-smoke.sh
-tests/claude-smoke.sh
-tests/fable-review-validator.sh
-```
-
-Do not hand-edit generated packages or the always-on template. Recommendations
-must remain separate from execution, and missing model evidence must remain
-unverified. Test installations only in temporary targets.
+Run `python3 scripts/validate.py` and `git diff --check` after changes. Do not
+install into the user's active profiles or publish a release merely to test a
+change.

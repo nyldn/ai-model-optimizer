@@ -1,61 +1,100 @@
 ---
 name: model-optimizer-lite
-description: Choose a model and reasoning effort, prepare a cross-model handoff, or validate a model-specific review. Use for explicit routing or escalation decisions involving Claude or Codex, including Astra. Ordinary coding, research, and review requests do not require this skill.
+description: Choose whether to keep or switch the current AI model and reasoning effort in ChatGPT, Codex, or Claude. Use when the user asks which model, effort, or AI should handle a task, whether the current model is enough, or whether another model should review it.
+metadata:
+  version: "5.0.0-dev"
+  source: "https://github.com/nyldn/model-optimizer-lite"
 ---
 
 # Model Optimizer Lite
 
-Use this skill in Claude or Codex; select the profile for the actual host.
+Help the user make one model decision. Give advice only. Do not change model
+settings, start another AI session, run a provider CLI, or dispatch work unless
+the user separately asks for that action.
 
-Keep one capable owner when the current session can finish the work. A recommendation
-does not switch models or authorize a delegated run. Preserve explicit model pins,
-scope, data restrictions, and the user's existing execution permissions.
+## Start with the actual client
 
-Read [shared routing policy](references/shared-policy.md) for routing or escalation.
-Load only the relevant host profile: [Claude](references/claude-profile.md) or
-[Codex and Astra](references/codex-profile.md). Load the other profile only for a
-cross-provider handoff.
+Identify whether the conversation is in ChatGPT Chat or Work, Codex, or Claude.
+Codex may run inside the ChatGPT desktop app, a terminal, an IDE, or the cloud.
+Do not treat those clients as interchangeable.
 
-## Choose the next action
+- Preserve any model or reasoning effort the user explicitly selected.
+- Prefer the current capable model when it already has useful task context.
+- Use only model names and controls exposed by the current client and account.
+- If the current model is not visible, call it unknown. Do not infer it from the
+  application name, generated prose, configuration files, or a requested model.
+- Do not require Codex CLI for ChatGPT desktop use. Use the app's visible model
+  and reasoning controls when they are available.
 
-- Keep the current model when its context and capability fit the task.
-- For a new task or a justified escalation, select among models available in the
-  actual client. State the task bottleneck and required checks.
-- Use the host's native model selector or delegation controls when supported.
-  Confirm the resulting model if the host exposes authoritative metadata.
-- If the current desktop/chat environment cannot control models or run local
-  commands, give the recommendation and a compact handoff. Describe the required
-  manual step; do not claim an automatic switch.
-- A provider error, timeout, refusal, or missing capability is evidence to inspect.
-  Do not silently change providers, relax permissions, or repeat the same run.
+Ask a short question only when the available models or current selection would
+materially change the recommendation.
 
-## Optional deterministic helpers
+## Choose the smallest suitable tier
 
-Python 3.9+ is needed only for these helpers. Skill guidance and installation do
-not require it. Resolve scripts relative to this installed skill directory.
+| Work | Starting tier |
+| --- | --- |
+| Repetitive edits, formatting, or simple extraction | Fastest available model |
+| Ordinary implementation, writing, or analysis | Balanced everyday model |
+| Ambiguous research, detailed review, or difficult coding | Strong reasoning model |
+| Hard debugging, major architecture, or sustained work across tools | Highest-capability model |
 
-```sh
-python3 scripts/model_optimizer_lite.py route --host codex --task debugging --complexity hard
-python3 scripts/model_optimizer_lite.py route --host codex --task mechanical --current-model gpt-6-astra
-```
+When the current OpenAI client offers these model families, Luna is the fast
+tier, Terra is the everyday tier, Sol is the stronger reasoning tier, and Astra
+is the highest-capability tier. When Claude offers Sonnet, Opus, and Fable, use
+them in the same broad order. Availability varies by account, client, and
+rollout, so describe an unavailable recommendation as conditional.
 
-`route` emits advice and never launches inference or changes configuration.
-An absent catalog produces `needs-capability-check`, not a claim of availability.
-Read [helper commands](references/helper-commands.md) before model discovery or
-validating raw review events. Discovery is explicit and may contact the provider.
+Start with the client's default reasoning effort. Raise it only when the task
+needs deeper planning, analysis, or verification. Use the highest effort for a
+specific hard problem, not as a standing default. An effort mode that delegates
+work is appropriate only when the task can be split safely and the user has
+authorized that scope.
 
-## Review and handoff
+## Decide whether to switch
 
-Keep the primary owner responsible for verification and integration, whether that
-owner runs in Claude or Codex. A reviewer gets the exact artifact, revision,
-question, allowed tools, and acceptance criteria. Verify findings against source.
+Stay with the current model when it can finish the task, already holds useful
+context, or the likely gain does not justify a handoff.
 
-Read [review gates](references/review-gates.md) when a named decision requires an
-independent verdict. For a specifically requested Fable gate, the existing
-[Fable review template](references/fable-review-gates.md) remains available.
-Read [Codex execution templates](references/codex-workflows.md) only for CLI work.
+Consider a switch when one of these is true:
 
-Report the chosen model and effort, routing reason, checks, and any uncertainty
-about the model that actually ran. Keep raw prompts and transcripts out of
-shared receipts. No standing councils, worker trees, scheduler, or background
-router are needed for this skill.
+- the task has become materially harder than the current tier suits;
+- progress is blocked after the model has inspected the relevant evidence;
+- the work needs a capability or tool the current client lacks;
+- the user wants an independent review with a distinct question.
+
+Do not switch merely because a stronger model exists. First check whether the
+real problem is missing context, unclear acceptance criteria, unavailable tools,
+or a failing environment.
+
+## Use the native control
+
+- In ChatGPT, invoke the skill with `@model-optimizer-lite` and use the model and
+  reasoning controls shown near the composer.
+- In Codex, invoke it with `$model-optimizer-lite`. Use the visible app control
+  or `/model` in Codex CLI. Mention CLI flags only when the user is working in a
+  terminal and asks for a command.
+- In Claude Code, invoke it with `/model-optimizer-lite` and use `/model` or the
+  client's selector. Other Claude clients may expose different controls.
+
+If the client cannot change models in the current conversation, explain the
+manual action: open the selector, start a new conversation with the chosen
+model, or keep the current model.
+
+## Return a compact recommendation
+
+State:
+
+1. `Stay` or `Switch`.
+2. The model tier or exact visible model, plus reasoning effort when relevant.
+3. One task-specific reason.
+4. The native action needed, if any.
+5. Any uncertainty about availability or the model that is currently running.
+
+When a switch or review is worthwhile, include a short handoff with the goal,
+current state, evidence already gathered, constraints, checks already run, and
+the one question the next model should answer. Keep one owner responsible for
+integrating the result.
+
+Never claim that a recommendation proves quality, lowers subscription cost, or
+confirms that a named model executed the work. Treat another model's output as
+evidence to verify, not authority.

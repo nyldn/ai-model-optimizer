@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Reduced the installed package to one self-contained `SKILL.md` plus optional
+  ChatGPT display metadata.
+- Added distinct ChatGPT, Codex, and Claude invocation and model-control guidance.
+- Added an installed version marker and scope-specific migration instructions.
+
+### Removed
+
+- Removed model-routing and review-receipt scripts, app-server discovery,
+  generated package copies, native plugins, marketplace catalogs, the terminal
+  installer, and their supporting tests and documentation.
+
 ## [4.0.0] - 2026-09-05
 
 ### Added
