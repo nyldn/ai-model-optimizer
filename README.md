@@ -42,8 +42,8 @@ web-only and mobile ChatGPT clients.
 The built-in installer does not overwrite an existing folder. Update each scope
 where you still want the skill:
 
-- For ChatGPT desktop and Codex user scope, move any existing copy from
-  `~/.codex/skills/model-optimizer-lite` or the v4 location
+- For ChatGPT desktop and Codex user scope, check the actual installed path.
+  Move any existing copy from `~/.codex/skills/model-optimizer-lite` or
   `~/.agents/skills/model-optimizer-lite` to a backup outside `skills`. Then run
   the installation prompt above.
 - For a Codex project copy, move `.agents/skills/model-optimizer-lite` to a
@@ -54,8 +54,15 @@ where you still want the skill:
   from a fresh checkout into that same scope.
 
 Start a new conversation in each updated client. Open the installed `SKILL.md`
-and confirm that `metadata.version` is `5.0.0-dev`, then invoke the skill before
+and confirm that `metadata.version` is `5.0.0`, then invoke the skill before
 removing the backup. Updating one scope does not update the others.
+
+Codex detects local skill edits automatically; restart it if the update does
+not appear. Claude Code also watches local skill edits. If its top-level
+`.claude/skills` directory was created during the session, run `/reload-skills`.
+Use a new conversation to verify updated guidance without previously loaded
+instructions. See the current [OpenAI](https://learn.chatgpt.com/docs/build-skills)
+and [Claude Code](https://code.claude.com/docs/en/skills) discovery instructions.
 
 Version 4 also offered a plugin. If Model Optimizer Lite appears under Plugins,
 uninstall or disable that copy through the app's plugin manager. Keep only the
@@ -94,6 +101,16 @@ Claude clients may use their own skill import flow.
 The recommendation uses the models and controls visible in the current client.
 It does not unlock models, prove account access, or promise cost savings.
 
+Catalog guidance was checked on October 5, 2026 against the official
+[OpenAI client catalog](https://learn.chatgpt.com/docs/models),
+[OpenAI API catalog](https://developers.openai.com/api/docs/models), and
+[Claude catalog](https://platform.claude.com/docs/en/models/overview).
+It covers GPT-6 Luna, GPT-6.1 Sol, and GPT-6 Astra for Work/Codex, plus Claude
+Haiku 4.5, Sonnet 5.5, Opus 5.5, and Fable 5.1. It distinguishes Chat from
+Work/Codex availability and client retirement from API retirement. The skill
+checks current sources when needed and available, or discloses that its dated
+guidance may be stale.
+
 ## Repository layout
 
 ```text
@@ -104,8 +121,12 @@ skills/model-optimizer-lite/
 ```
 
 The installed skill has no scripts or referenced instruction files. Maintainers
-can run `python3 scripts/validate.py` and `git diff --check` before submitting a
-change. See [CONTRIBUTING.md](CONTRIBUTING.md) for the small maintenance contract.
+use a pinned YAML parser for repository validation and run isolated validator
+regression tests. Skill changes also have [behavior review cases](tests/behavior-cases.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup and checks before submitting a change.
+The [upstream notes](docs/UPSTREAM.md) record documentation findings and decisions.
+The [catalog drift check](docs/CATALOG-CHECK.md) flags upstream changes for maintainer review.
+The [native evaluation record](docs/EVALUATION.md) reports tested behavior and limits.
 The [delivery contract](docs/DELIVERY.md) records the supported clients and
 release boundary.
 

@@ -1,0 +1,2 @@
+# Maintainer checks only; the installed skill has no Python dependencies.
+PyYAML==6.0.3

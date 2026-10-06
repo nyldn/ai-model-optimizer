@@ -12,6 +12,7 @@ build/
 coverage/
 __pycache__/
 *.pyc
+tests/evals/results/
 
 # Keep local research/dropzone material out of public releases if copied here.
 research/

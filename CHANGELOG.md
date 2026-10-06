@@ -6,12 +6,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [5.0.0] - 2026-10-06
+
 ### Changed
 
 - Reduced the installed package to one self-contained `SKILL.md` plus optional
   ChatGPT display metadata.
 - Added distinct ChatGPT, Codex, and Claude invocation and model-control guidance.
 - Added an installed version marker and scope-specific migration instructions.
+- Refreshed model guidance against the October 5, 2026 OpenAI and Claude
+  catalogs, including GPT-6.1 Sol and Claude Haiku 4.5, Sonnet 5.5, Opus 5.5,
+  and Fable 5.1.
+- Distinguished Chat, Work/Codex, and API availability and retirement, with
+  source links and client-specific reasoning effort guidance.
+- Parse skill and UI metadata as YAML, reject package symlinks and runtime
+  overrides, and keep validation active when Python optimization is enabled.
+- Clarified Claude Code session-only choices, runtime fallback, and Ultracode
+  controls using current upstream documentation.
+- Distinguished desktop tool access from user terminal access, and avoided
+  inferring task complexity from unsupported effort requests after native evals.
+
+### Added
+
+- Isolated validator regression tests and pinned maintainer-only YAML tooling.
+- Behavior review scenarios and PR outcome reporting for skill/catalog changes.
+- Dated upstream research notes with implementation decisions and source links.
+- Native Claude Code behavioral fixtures with separate advice and invocation
+  checks, isolated baseline comparisons, and local report guidance.
+- Maintainer-only public catalog drift checker, reviewed snapshot, source-linked
+  Markdown/JSON reports, and offline regression tests. Candidate snapshots
+  require review and never automatically replace skill guidance.
 
 ### Removed
 
@@ -244,7 +268,8 @@ An xhigh review of the v2.0.1 installer found that the hardening pass introduced
 - One-shot installer (`install.sh`) with user and project modes.
 - CI validation of the skill package and public boundary.
 
-[Unreleased]: https://github.com/nyldn/model-optimizer-lite/compare/v4.0.0...HEAD
+[Unreleased]: https://github.com/nyldn/model-optimizer-lite/compare/v5.0.0...HEAD
+[5.0.0]: https://github.com/nyldn/model-optimizer-lite/compare/v4.0.0...v5.0.0
 [4.0.0]: https://github.com/nyldn/model-optimizer-lite/compare/v3.0.0...v4.0.0
 [3.0.0]: https://github.com/nyldn/model-optimizer-lite/compare/v2.2.0...v3.0.0
 [2.2.0]: https://github.com/nyldn/model-optimizer-lite/compare/v2.1.0...v2.2.0

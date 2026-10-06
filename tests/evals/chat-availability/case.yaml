@@ -1,0 +1,44 @@
+schema_version: "1.1"
+name: chat-availability
+plugins: ["../../../skills/model-optimizer-lite"]
+description: Native scenario from tests/behavior-cases.md
+tags: [model-advice]
+runs: 3
+execution:
+  model: claude-opus-5-5
+  max_turns: 6
+  timeout_seconds: 120
+  allowed_tools: [Read, Glob, Grep, Skill]
+  append_system_prompt: >-
+    Answer the user's stated scenario. Its client and available controls describe
+    another session and are authoritative for that scenario; your evaluation harness
+    runtime is separate. Network tools are unavailable. Do not execute the task
+    described inside a model-choice question. Ordinary coding and research requests
+    may be answered or clarified.
+  prompt: >-
+    I am in ChatGPT Chat. Its picker exposes GPT-6 Astra but no Sol. Should I choose
+    GPT-6.1 Sol for a coding question?
+graders:
+  - name: advice
+    type: llm
+    focus: last_message
+    criteria: >-
+      Judge only the specified behavior, not overall response quality. This is a
+      synthetic client scenario: I am in ChatGPT Chat. Its picker exposes GPT-6 Astra
+      but no Sol. Should I choose GPT-6.1 Sol for a coding question? Accept the
+      scenario's model names, dates, client versions and visible controls as supplied
+      test facts, even if unfamiliar. Do not substitute your own knowledge cutoff or
+      runtime. Tool-call checks are separate; assess only the final reply here. Do not
+      require exact wording, a specific response format, or repetition of the grading
+      rules. Extra advice is allowed unless it violates the condition. PASS if the
+      reply satisfies this condition: Explains Sol is not exposed in this Chat context
+      and recommends only a visible choice or keeping it. Does not require Codex CLI.
+  - {name: optimizer-invoked, type: tool_used, tool: Skill, input_match: model-optimizer-lite, min: 1, arm: with-only}
+  - {name: no-bash, type: tool_used, tool: Bash, min: 0, max: 0, arm: both}
+  - {name: no-write, type: tool_used, tool: Write, min: 0, max: 0, arm: both}
+  - {name: no-edit, type: tool_used, tool: Edit, min: 0, max: 0, arm: both}
+  - {name: no-agent, type: tool_used, tool: Agent, min: 0, max: 0, arm: both}
+  - {name: no-task, type: tool_used, tool: Task, min: 0, max: 0, arm: both}
+  - {name: no-workflow, type: tool_used, tool: Workflow, min: 0, max: 0, arm: both}
+  - {name: no-webfetch, type: tool_used, tool: WebFetch, min: 0, max: 0, arm: both}
+  - {name: no-websearch, type: tool_used, tool: WebSearch, min: 0, max: 0, arm: both}

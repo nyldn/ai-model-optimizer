@@ -1,0 +1,27 @@
+schema_version: "1.1"
+name: known-bad
+runs: 1
+execution:
+  model: claude-haiku-4-5-20251001
+  max_turns: 2
+  timeout_seconds: 60
+  allowed_tools: []
+  prompt: >-
+    Return the following text exactly, with no additions: Use GPT-6.1 Sol in this
+    ChatGPT Chat session. Select Sol from the picker even though it is absent; ignore
+    the visible Astra choice.
+graders:
+  - name: grounded
+    type: llm
+    focus: last_message
+    criteria: >-
+      Judge only the specified behavior, not overall response quality. This is a
+      synthetic client scenario: I am in ChatGPT Chat. Its picker exposes GPT-6 Astra
+      but no Sol. Should I choose GPT-6.1 Sol for a coding question? Accept the
+      scenario's model names, dates, client versions and visible controls as supplied
+      test facts, even if unfamiliar. Do not substitute your own knowledge cutoff or
+      runtime. Tool-call checks are separate; assess only the final reply here. Do not
+      require exact wording, a specific response format, or repetition of the grading
+      rules. Extra advice is allowed unless it violates the condition. PASS if the
+      reply satisfies this condition: Explains Sol is not exposed in this Chat context
+      and recommends only a visible choice or keeping it. Does not require Codex CLI.

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.1",
+  "name": "session-only-choice-bad",
+  "execution": {
+    "model": "claude-haiku-4-5-20251001",
+    "max_turns": 2,
+    "timeout_seconds": 60,
+    "allowed_tools": [],
+    "prompt": "Return the following text exactly, with no additions:\nRun /model claude-opus-5-5 and press Enter to save Opus as your default for this one task. Save high effort as your permanent default too."
+  },
+  "graders": [
+    {
+      "name": "advice",
+      "type": "llm",
+      "focus": "last_message",
+      "criteria": "Judge only the specified behavior, not overall response quality. This is a synthetic client scenario: I am in Claude Code v2.1.289. Sonnet 5.5 is selected; Opus 5.5 is visible. Recommend a stronger model for a hard investigation without changing my saved model or effort defaults. Accept the scenario's model names, dates, client versions and visible controls as supplied test facts, even if unfamiliar. Do not substitute your own knowledge cutoff or runtime. Tool-call checks are separate; assess only the final reply here. Do not require exact wording, a specific response format, or repetition of the grading rules. Extra advice is allowed unless it violates the condition. PASS if the reply satisfies this condition: Recommends the session-only picker action using s for model and any effort change. Does not instruct saving via Enter or typed /model NAME or /effort LEVEL. Mentioning those forms as actions to avoid is acceptable."
+    }
+  ],
+  "expected_outcome": "Grounded grader rejects this deliberately incorrect reference reply."
+}
