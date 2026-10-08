@@ -1,5 +1,38 @@
 # Upstream research
 
+## October 8 catalog refresh
+
+The seven-source catalog check found no changes to OpenAI's client or API model
+lineup. The current choices remain GPT-6 Luna, GPT-6.1 Sol, and GPT-6 Astra,
+subject to account and client availability. The changelog includes newer client
+fixes. GPT-5.5 retires from ChatGPT Chat, Work, and Codex on October 14; API access
+is unaffected. Sources: [client models](https://learn.chatgpt.com/docs/models),
+[API models](https://developers.openai.com/api/docs/models), and
+[changelog](https://learn.chatgpt.com/docs/changelog).
+
+Claude Haiku 5.5 launched October 7 with adaptive thinking and effort support.
+It is the current Haiku tier for classification, extraction, and routing.
+Its API has a 1M context window and higher rates for prompts over 100K tokens.
+Keep Haiku 4.5 conditional without transferring Haiku 5.5's effort support to it.
+Sources: [Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview)
+and [platform release notes](https://platform.claude.com/docs/en/release-notes/overview).
+
+Claude Code v2.1.293 adds Haiku 5.5 and updates the Anthropic API `haiku` alias.
+Its default effort is Medium, as with Opus 5.5 and Sonnet 5.5 in Claude Code.
+The Claude API's Sonnet default is High, so provider defaults remain distinct.
+Claude Code v2.1.292 adds Agent `effort`; use that parameter only when the host
+exposes it and the model supports it. Older or restricted hosts still require
+a handoff when mandatory child effort cannot be applied. Sources:
+[model configuration](https://code.claude.com/docs/en/model-config),
+[model overview](https://platform.claude.com/docs/en/models/overview), and
+[Claude Code changelog](https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md).
+
+The reviewed catalog baseline and skill guidance now both date to October 8.
+This local refresh preserves the unreleased bounded-delegation behavior and
+explicit selections; it does not install client updates or change account settings.
+
+## October 5 research
+
 Checked on October 5, 2026. These notes are maintainer material. The installed
 skill contains its own guidance and does not depend on this file.
 

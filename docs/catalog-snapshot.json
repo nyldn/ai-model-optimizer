@@ -1,19 +1,21 @@
 {
-  "reviewed_on": "2026-10-06",
+  "captured_on": "2026-10-08",
+  "reviewed_on": "2026-10-08",
   "schema_version": 1,
   "sources": {
     "claude-changelog": {
       "categories": {
-        "client-requirements": "0fd6638abdb54abcd665a5e5bab9f943fd552b4c1e08ed45bfa790a6a5535a56",
-        "effort": "ad9192c9605832e658ac5d7c7237084e82eb6bfc801eaa2ad9ad8e0022f1fb66",
+        "client-requirements": "ceae6a660b060943bf90dc1624dfb0685a7209cc295ffbbfb6800087d2c3a4b0",
+        "effort": "19a46a6e2c50756df9c9a3ad59d196a3331ad9078f1da1a9c1d187616912ed8d",
         "retirements": "c4f342515e84d50e4a9327c1e9a962e1d430e4b66f9d1b65cb9dba387e3f06ee",
-        "skills-and-controls": "3c073523e055e37f2a71121c5c2cdfda9855e36060450e808e9e08b3adc810c7"
+        "skills-and-controls": "e32ddece278de74689384a88a8f3505853a2b2e170e739c38673e8bcd6cdae52"
       },
-      "content_sha256": "2c6d5dc61a31f122eb492eba417b19d7481304460cc8fea9baee77e9aa57489a",
+      "content_sha256": "e5e00e52aa703da5a1608e2f1f1877656b58decd941a1af535b51e6f5a12f1d8",
       "model_mentions": [
         "claude-fable-5",
         "claude-fable-5-1",
         "claude-haiku-4-5",
+        "claude-haiku-5-5",
         "claude-opus-4",
         "claude-opus-4-0",
         "claude-opus-4-1",
@@ -38,16 +40,17 @@
     },
     "claude-config": {
       "categories": {
-        "client-requirements": "3330f1db2562e4627c467eabe76e5ba5ba082240573a2400a99e2a2533cd6d24",
-        "effort": "9e3c4a27e5979e8a1bffe25fc4b93675317629ed449b74deae02ffc190afb77f",
-        "retirements": "88451ed28397a9df69749647c1c4b3007db05a5b70259814eef4127a1393cd08",
-        "skills-and-controls": "de88894e9f81235f36e04af1c73b72012a686ecdd1d7e6ffa7c12125462c0f2d"
+        "client-requirements": "33b28a26a4b17823fad52428f28c704d5da79e0003e3de50b70c961913b8058a",
+        "effort": "2a66cf8de9299f32a782d97ac2b47afa55ab41cea8f3f3203268f665eaed60af",
+        "retirements": "235a227d8139f11d15a84ab9cdde2fb9ad1f0e07b435edd36452cb9f65e9e688",
+        "skills-and-controls": "cb7849fca5ed8bb5abe27061d553886436a3e6adaae16afa19a52cff80bf7170"
       },
-      "content_sha256": "0b0fdecc6e3b07a6d6015580f7c7d994333fd26ac015d8b35857d1ad9637daa5",
+      "content_sha256": "3cfbb5ce70dbe565f3f6c43b4ff7b5b214ea5cf52a89131a9c289ef8ddc86385",
       "model_mentions": [
         "claude-fable-5",
         "claude-fable-5-1",
         "claude-haiku-4-5",
+        "claude-haiku-5-5",
         "claude-opus-4-6",
         "claude-opus-4-7",
         "claude-opus-4-8",
@@ -63,16 +66,16 @@
     },
     "claude-models": {
       "categories": {
-        "client-requirements": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "effort": "f6d65cdf3e91c538ad086b899dc99cc3438f29d7eab7527f350b4cb3bd06712d",
-        "retirements": "5f8b48985a5a2cb579c611d3dcf91a393b8b701906fd2cd9d1aa65ca92b99546",
+        "client-requirements": "d7a032a8239018aa9e38992c2fc35470fe1461d76d32b9e719203c7ffed87839",
+        "effort": "ae0963134bf6b3f4553abfcf7f04c0e39fe1b1944095a874f346b2064a1e842f",
+        "retirements": "f3c449b3f758902ceae7154d4df61f219f5c2a9ff75fac89a814c8673b0b7f45",
         "skills-and-controls": "3746174594b81f58eee737bf5e9032a3c715d21b523d4651f6cd08165fb7db73"
       },
-      "content_sha256": "169baf4c4a36f9779077e240533eecc0e642e0270056d365f75c7c0c856f216b",
+      "content_sha256": "c63817d86899e4a90d1e9cc192c33cf5509617db17f54412bcf6945f498b5d53",
       "model_mentions": [
         "claude-fable-5-1",
         "claude-haiku-4-5",
-        "claude-haiku-4-5-20251001",
+        "claude-haiku-5-5",
         "claude-opus-4-5",
         "claude-opus-4-6",
         "claude-opus-5",
@@ -83,18 +86,19 @@
     },
     "claude-release": {
       "categories": {
-        "client-requirements": "a962bf1733293ac230c8d78e47e489e6abc6385677004b62859efc31b2982814",
-        "effort": "34ceec6b5101f00c118adea0ec845e4497f18d02ef2f307ab7cc3577fab679f1",
+        "client-requirements": "763cf8e0a0498df30a832b1ce875e754c3c7be608c37f38ef7de7f39db306c36",
+        "effort": "a3cf5fbf1cbd2b6f32cce3a952450898bc40186233fce6787409c58229455339",
         "retirements": "5f0ee6d9361fe8fbafda30d33eed9bd7fb08b7c9b6c5cfb6152374fd3e43777a",
         "skills-and-controls": "65dc17413541f394b9bb5955a0342d0121607f8f9ac14e3d88cac25f6a58f106"
       },
-      "content_sha256": "f5103e38a4bb1a5c4146dfcb330bd05dbb8ebf9761be29b96b0012341c5ee7f0",
+      "content_sha256": "778c5e3c8923d527a99a8bd63837d904355c5a8c65a54290deb43c3bb0a8245b",
       "model_mentions": [
         "claude-fable-5",
         "claude-fable-5-1",
         "claude-haiku-3",
         "claude-haiku-3-5",
         "claude-haiku-4-5",
+        "claude-haiku-5-5",
         "claude-opus-3",
         "claude-opus-4",
         "claude-opus-4-1",
@@ -180,12 +184,12 @@
     },
     "openai-changelog": {
       "categories": {
-        "client-requirements": "fb8089e1bbee720d5f859dd40898f22beaae674f85f6d1dc9dbc0cb8ab6c4ebf",
-        "effort": "2061fe7dd0210a9f3b24dd22258eb6406b266916e355f6a44f4e38c585007e9e",
-        "retirements": "9125eae5623710d02380f6eaf4b3f8767d600e253e1d2169390baa6ca7ca08b4",
-        "skills-and-controls": "59b7fe924d931d8fc987f0b631e5047ae01858d1f00984b8725c3eb679969dec"
+        "client-requirements": "686e6a0e8ad05bae4e5f5a35d957bd04e450b6013f382a5fa77ffb17fe5cd134",
+        "effort": "22f8a9d09a930aef0644cb3d1fede1930f63a51a87012159f35c16bacef5a60a",
+        "retirements": "57190712843843ffea87f45a7d12373224d7d590f73048e285a2346349431742",
+        "skills-and-controls": "54bb1cb4dcab54b724f1eb3572d05bf72869151aed6b15927e5d7bb58c59f115"
       },
-      "content_sha256": "63b9ea46973464eb72d6f6dcf2f688eaa2569954bc4004404a9fa5f5ef96fa95",
+      "content_sha256": "8edbb88cd0c9f44890c0866a0c8295d085c1aa9d2f0d194de953cc8ce443c76d",
       "model_mentions": [
         "gpt-5",
         "gpt-5-codex",
